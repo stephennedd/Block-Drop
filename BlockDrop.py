@@ -17,6 +17,7 @@ RED = (255,0,0)
 BLACK = (0,0,0)
 BLUE = (0,0,255)
 YELLOW = (255,255,0)
+GREEN = (43,226,22)
 
 PLAYER_SIZE = 50
 PLAYER_POS = [WIDTH/2, HEIGHT-2*PLAYER_SIZE]
@@ -49,7 +50,7 @@ def set_level(score, speed):
 
 def drop_enemies(enemy_list):
     delay = random.random()
-    if len(enemy_list) < 10 and delay < 0.1:
+    if len(enemy_list) < 10 and delay < 0.05:
         x_pos = random.randint(0, WIDTH-enemy_size)
         y_pos = 0
         enemy_list.append([x_pos, y_pos])
@@ -85,6 +86,8 @@ def detect_collision(player_pos, enemy_pos):
             return True
     return False
 
+# Game mainloop
+
 while not game_over:
     for event in pygame.event.get():
         # this is the code to enable the window to be closed
@@ -98,9 +101,9 @@ while not game_over:
             y = PLAYER_POS[1]
 
             if event.key == pygame.K_LEFT:
-                x -= 50
+                x -= 25
             elif event.key == pygame.K_RIGHT:
-                x += 50
+                x += 25
 
             PLAYER_POS = [x, y]
 
@@ -116,7 +119,7 @@ while not game_over:
     speed = set_level(score, speed)
 
 
-    text1 = "Block Drop"
+    text1 = "Block Drop v1.0"
     label1 = myFont.render(text1, 1, YELLOW)
     screen.blit(label1,(WIDTH-550, HEIGHT-590))
 
@@ -128,7 +131,7 @@ while not game_over:
         game_over = True
         break
     draw_enemies(enemy_list)
-    pygame.draw.rect(screen, RED, (PLAYER_POS[0], PLAYER_POS[1], PLAYER_SIZE, PLAYER_SIZE))
+    pygame.draw.rect(screen, GREEN, (PLAYER_POS[0], PLAYER_POS[1], PLAYER_SIZE, PLAYER_SIZE))
 
 
     clock.tick(30)
